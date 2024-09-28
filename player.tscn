@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://6w5eqj4k7aru"]
+
+[ext_resource type="Texture2D" uid="uid://cb6mqhuxbq57c" path="res://Small-8-Direction-Characters_by_AxulArt.png" id="1_prpth"]
+[ext_resource type="Script" path="res://movement.gd" id="2_oirei"]
+
+[node name="Player" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(145.75, 71.5)
+scale = Vector2(0.966667, 0.954545)
+texture = ExtResource("1_prpth")
+hframes = 8
+vframes = 3
+region_enabled = true
+region_rect = Rect2(-0.0377808, 220.161, 127.357, 67.2692)
+script = ExtResource("2_oirei")
