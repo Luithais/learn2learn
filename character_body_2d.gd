@@ -12,7 +12,7 @@ func _physics_process(delta: float) -> void:
 	
 	var moveDir:Vector2 = Input.get_vector("ui_left","ui_right","ui_up","ui_down")
 	
-	if moveDir.x != 0 && moveDir.y != 0:
+	if moveDir.x != 0 && moveDir.y != 0: #nwse not working because x or y would = 0
 		position += moveDir * (tileSize / 2)
 		wait(0.5)
 		
