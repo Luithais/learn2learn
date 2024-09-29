@@ -331,13 +331,13 @@ pattern_0 = SubResource("TileMapPattern_y6yem")
 
 [node name="TileMapLayer" type="TileMapLayer"]
 y_sort_enabled = true
-position = Vector2(-5, -14)
+position = Vector2(62, 26)
 tile_map_data = PackedByteArray("AAD//wIAAAAIAAMAAAD9////AAAIAAMAAAABAAIAAAAIAAMAAAABAAEAAAAIAAMAAAACAP//AAAIAAMAAAABAAQAAAAGAAQAAAD9/wMAAAAGAAQAAAACAAUAAAAAAAQAAAD///3/AAAIAAMAAAA=")
 tile_set = SubResource("TileSet_25aq1")
 
 [node name="Player" parent="." instance=ExtResource("2_ajgq4")]
 z_index = 1
-position = Vector2(-197, -67)
+position = Vector2(-202, -69)
 
 [node name="GroundLayerMap" type="TileMapLayer" parent="."]
 position = Vector2(-5, -14)
