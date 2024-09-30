@@ -1,29 +1,40 @@
 extends CharacterBody2D
 
 @onready var animatedSprite = $AnimatedSprite2D
+@onready var timer = $MovementPause
 
-var speed = 3000.0
-var tileSize = 32
+var tileSize = 512
+var newPos = 0
 
-func wait(seconds: float) -> void:
-	await get_tree().create_timer(seconds).timeout
+func _ready():
+	position = position.snapped(Vector2.ONE * tileSize)
+	position += Vector2.ONE * tileSize/2
+
+func _on_movement_pause_timeout() -> void:
+	get_tree().paused = false
+
+func move():
+	position = newPos
+	get_tree().paused = true
+	timer.start()
 
 func _physics_process(delta: float) -> void:
-	
-	var moveDir:Vector2 = Input.get_vector("ui_left","ui_right","ui_up","ui_down")
-	
-	if moveDir.x != 0 && moveDir.y != 0: #nwse not working because x or y would = 0
-		position += moveDir * (tileSize / 2)
-		wait(0.5)
 		
-	#velocity = Input.get_vector("ui_left","ui_right","ui_up","ui_down") * speed * delta
-	#move_and_slide()
+	var moveDir:Vector2 = Input.get_vector("ui_left","ui_right","ui_up","ui_down")
+	newPos = position + moveDir * tileSize / 2
 	
 	
+	match [moveDir.x == 0, moveDir.y == 0]:
+		[false, false]:
+			move()
+		[true, false]:
+			move()
+		[false, true]:
+			move()
+			
 	#Animation
 	match [moveDir.x == -1, moveDir.x > -1 && moveDir.x < 0, moveDir.x == 0, moveDir.x > 0 && moveDir.x < 1,
-	 moveDir.x == 1, moveDir.y == -1, moveDir.y > 1 && moveDir.y < 0, moveDir.y == 0, moveDir.y > 0 && moveDir.y < 1,
-	 moveDir.y ==1]:
+	 moveDir.x == 1, moveDir.y == -1, moveDir.y > -1 && moveDir.y < 0, moveDir.y == 0, moveDir.y > 0 && moveDir.y < 1, moveDir.y ==1]:
 		[false, false, true, false, false, true, false, false, false, false]:
 			animatedSprite.animation = "runN"
 		[false, false, false, true, false, false, true, false, false, false]:

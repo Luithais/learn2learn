@@ -235,8 +235,17 @@ shape = SubResource("CapsuleShape2D_wgvpn")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
 sprite_frames = SubResource("SpriteFrames_suofq")
-animation = &"runSE"
+animation = &"idle"
+frame = 4
+frame_progress = 0.733725
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
 scale = Vector2(1e-05, 1e-05)
-zoom = Vector2(0.5, 0.5)
+zoom = Vector2(0.3, 0.3)
+
+[node name="MovementPause" type="Timer" parent="CharacterBody2D"]
+process_mode = 3
+wait_time = 0.221
+one_shot = true
+
+[connection signal="timeout" from="CharacterBody2D/MovementPause" to="CharacterBody2D" method="_on_movement_pause_timeout"]
