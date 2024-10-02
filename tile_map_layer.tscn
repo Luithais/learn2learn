@@ -32432,7 +32432,7 @@ position = Vector2(-121, -504)
 tile_set = SubResource("TileSet_jn2eb")
 
 [node name="Player" parent="." instance=ExtResource("2_ajgq4")]
-position = Vector2(1039, -538)
+position = Vector2(1524, -280)
 
 [node name="MushroomTown" type="Sprite2D" parent="."]
 z_index = -1

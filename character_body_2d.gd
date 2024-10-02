@@ -5,13 +5,15 @@ extends CharacterBody2D
 
 var tileSize = 512
 var newPos = 0
-
-func _ready():
-	position = position.snapped(Vector2.ONE * tileSize)
-	position += Vector2.ONE * tileSize/2
+var newPosD = 0
 
 func _on_movement_pause_timeout() -> void:
 	get_tree().paused = false
+
+func moveD():
+	position = newPosD
+	get_tree().paused = true
+	timer.start()
 
 func move():
 	position = newPos
@@ -20,18 +22,23 @@ func move():
 
 func _physics_process(delta: float) -> void:
 		
-	var moveDir:Vector2 = Input.get_vector("ui_left","ui_right","ui_up","ui_down")
-	newPos = position + moveDir * tileSize / 2
+	var moveDir:Vector2 = Input.get_vector("ui_left","ui_right","ui_up","ui_down") #this vector isnt linked to tilemap
+	newPosD = position + moveDir * tileSize / 2
+	newPos = position + moveDir * tileSize
 	
+	#how do we get the exact direction of moving intercardinally along tilemap as a vector
+	
+	get_cell_atlas_coordinates
 	
 	match [moveDir.x == 0, moveDir.y == 0]:
 		[false, false]:
-			move()
+			moveD()
 		[true, false]:
-			move()
+			moveD()
 		[false, true]:
 			move()
 			
+	print_debug(moveDir)
 	#Animation
 	match [moveDir.x == -1, moveDir.x > -1 && moveDir.x < 0, moveDir.x == 0, moveDir.x > 0 && moveDir.x < 1,
 	 moveDir.x == 1, moveDir.y == -1, moveDir.y > -1 && moveDir.y < 0, moveDir.y == 0, moveDir.y > 0 && moveDir.y < 1, moveDir.y ==1]:
